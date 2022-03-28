@@ -3,7 +3,6 @@ import express from "express";
 
 const router = express.Router();
 
-router.route("/")
-    .get(layers_controller.get_layers);
+router.get("/", layers_controller.get_layers);
 
 export { router as default };

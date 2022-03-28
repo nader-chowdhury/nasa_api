@@ -3,7 +3,8 @@ import express from "express";
 
 const router = express.Router();
 
-router.route("/")
-    .get(events_controller.get_events);
+router.get("/",events_controller.get_events_query);
+
+router.get("/:id", events_controller.get_events_id);
 
 export { router as default };
