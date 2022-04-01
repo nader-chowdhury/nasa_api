@@ -3,8 +3,7 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", categories_controller.get_categories_empty);
-
 router.get("/:category", categories_controller.get_categories);
+router.get("/", categories_controller.get_categories_empty);
 
 export { router as default };
