@@ -7,7 +7,7 @@ async function get_categories_empty(req, res) {
 }
 
 async function get_categories(req, res) {
-    let url = `https://eonet.gsfc.nasa.gov/api/v3/categories/${req.params.base}?`;
+    let url = `https://eonet.gsfc.nasa.gov/api/v3/categories/${req.params.category}?`;
     let query_string = new URLSearchParams(req.query);
 
     const response = await fetch(url + query_string.toString());

@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get("/", categories_controller.get_categories_empty);
 
-router.get("/:base", categories_controller.get_categories);
+router.get("/:category", categories_controller.get_categories);
 
 export { router as default };
