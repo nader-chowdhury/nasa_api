@@ -22,7 +22,7 @@ function Table () {
         let table_rows = event_array.map((event) => {
             return (
                 <tr key={event.id}>
-                    {/* <td>{event.id}</td> */}
+                    <td>{event.id}</td>
                     <td>{event.title}</td>
                     <td>{event.description}</td>
                     {/* <td>{event.link}</td> */}
@@ -47,7 +47,7 @@ function Table () {
             <caption>{data ? data.title : "Title loading . . ."}</caption>
             <thead>
                 <tr>
-                    {/* <th>ID</th> */}
+                    <th>ID</th>
                     <th>Title</th>
                     <th>Description</th>
                     {/* <th>Link</th> */}
