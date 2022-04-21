@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from './components/Table.js';
+import Filters from './components/Filters';
 import './App.css';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <Table />
+      <Filters />
       </header>
     </div>
   );

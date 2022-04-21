@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Table.css";
+import TableRow  from "./TableRow.js";
 
-function Table () {
+function Table (props) {
     const [data, setData] = useState(null);
 
     async function fetchData() {
         try {
-            const response = await fetch("/events?");
+            const response = await fetch(props.eonet_id === 0 ? "/events?" : `/events/EONET_${props.eonet_id}`);
             const data = await response.json();
             setData(data);
         } catch (error) {
-           console.log(error); 
+            console.log(error);
         }
     }
 
@@ -18,28 +19,15 @@ function Table () {
         fetchData();
     });
 
-    function fillRows (event_array) {
-        let table_rows = event_array.map((event) => {
-            return (
-                <tr key={event.id}>
-                    <td>{event.id}</td>
-                    <td>{event.title}</td>
-                    <td>{event.description}</td>
-                    {/* <td>{event.link}</td> */}
-                    {/* <td>{event.closed}</td> */}
-                    {event.categories.map((category) => {
-                        return (<td>{category.title}</td>)
-                    })}
-                    {event.sources.map((source) => {
-                        return (<td>{source.id}</td>)
-                    })}
-                    {/* {event.geometry.map((point) => { */}
-                    {/*     return  */}
-                    {/* })} */}
-                </tr> 
-            )
-        });
-        return table_rows;
+    function fillTable (data) {
+        if ("events" in data) {
+            let table_rows = data.events.map((event) => {
+                return <TableRow key={event.id} event={event} />;
+            });
+            return table_rows;
+        } else {
+            return <TableRow event={data} />;
+        }
     }
 
     return (
@@ -58,7 +46,7 @@ function Table () {
                 </tr>
             </thead>
             <tbody>
-                {data ? fillRows(data.events) : <tr><td>Loading</td></tr>}
+                {data ? fillTable(data) : <tr><td>Loading</td></tr>}
             </tbody>
         </table>
     );

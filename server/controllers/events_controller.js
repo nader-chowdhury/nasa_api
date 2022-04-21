@@ -10,9 +10,15 @@ async function get_events_query(req, res) {
 }
 
 async function get_events_id(req, res) {
-    const response = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/events/${req.params.id}`);
-    const data = await response.json();
-    res.send(data);
+    try {
+        const response = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/events/${req.params.id}`);
+        const data = await response.json();
+        res.send(data);
+    } catch (error) {
+        console.log(error);
+        get_events_query(req, res);
+    }
+    
 }
 
 export {
