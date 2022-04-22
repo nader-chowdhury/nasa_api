@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Table.css";
 import TableRow  from "./TableRow.js";
 
-function Table (props) {
+export default function Table (props) {
     const [data, setData] = useState(null);
 
     async function fetchData() {
@@ -51,5 +51,3 @@ function Table (props) {
         </table>
     );
 }
-
-export default Table;

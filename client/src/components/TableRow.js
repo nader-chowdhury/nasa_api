@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./TableRow.css";
 
-function TableRow (props) {
+export default function TableRow (props) {
     let event = props.event;
 
     return (
@@ -23,5 +23,3 @@ function TableRow (props) {
         </tr> 
     )
 }
-
-export default TableRow;
