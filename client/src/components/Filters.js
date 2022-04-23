@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table.js";
+import Checkboxes from "./Checkboxes";
 import "./Filters.css";
 
 export default function Filters () {
@@ -11,18 +12,6 @@ export default function Filters () {
     useEffect(() => {
         fetchSourcesAndCategories();
     }, []);
-
-    function populateOptions (option_list, filter) {
-        let check_boxes = option_list.map((option) => {
-            return (
-                <div key={option.id}>
-                    <input type="checkbox" id={option.id} name={filter} value={option.id} />
-                    <label htmlFor={option.id}>{option.title}</label>
-                </div>
-            )
-        });
-        return check_boxes;
-    }
 
     async function fetchSourcesAndCategories () {
         const [sources_res, categories_res] = await Promise.all([
@@ -75,10 +64,23 @@ export default function Filters () {
                 <input type="number" name="eonet_id"></input>
 
                 <label>Source</label>
-                {sources_list && populateOptions(sources_list, "source")}
+                {sources_list && <Checkboxes name="source" options={sources_list} />}
 
                 <label>Categories</label>
-                {categories_list && populateOptions(categories_list, "category")}
+                {categories_list && <Checkboxes name="category" options={categories_list} />}
+
+                <label>Status</label>
+                <Checkboxes name="status" options={[
+                    {id: "open", title: "Open"},
+                    {id: "closed", title: "Closed"},
+                    {id: "all", title: "All"}
+                ]}/>
+
+                <label>Limit</label>
+                <input type="number" name="limit"></input>
+
+                <label>Days</label>
+                <input type="number" name="days"></input>
 
                 <input type="submit"/>
             </form>

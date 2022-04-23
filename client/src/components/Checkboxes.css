@@ -1,0 +1,9 @@
+li {
+    list-style-type: none;
+}
+
+.checkboxes {
+    overflow: auto;
+    height: 12rem;
+    width: 50%;
+}
