@@ -11,7 +11,8 @@ export default function Filters () {
 
     useEffect(() => {
         fetchSourcesAndCategories();
-    }, []);
+        console.log(state);
+    }, [state]);
 
     async function fetchSourcesAndCategories () {
         const [sources_res, categories_res] = await Promise.all([
@@ -26,15 +27,22 @@ export default function Filters () {
         setSources(sources_data.sources);
         setCategories(categories_data.categories);
     }
+
+    function handleCheckBoxSubmit(name) {
+        return Array
+            .from(document.querySelectorAll(`input[type=checkbox][name=${name}]:checked`))
+            .map((input) => input.value);
+    }
     
     function handleSubmit(event) {
         event.preventDefault();
 
         let form_data = new FormData(event.target);
+
         setState({
             ID: form_data.get("eonet_id"),
-            source: form_data.get("source"),
-            category: form_data.get("category"),
+            source: handleCheckBoxSubmit("source"),
+            category: handleCheckBoxSubmit("category"),
             status: form_data.get("status"),
             limit: form_data.get("limit"),
             days: form_data.get("days"),
@@ -62,18 +70,32 @@ export default function Filters () {
                 <label>EONET ID:</label>
                 <input type="number" name="eonet_id"></input>
 
-                <label>Source</label>
-                {sources_list && <Checkboxes name="source" options={sources_list} />}
+                <fieldset>
+                    <legend>Source</legend>
+                    {sources_list && <Checkboxes name="source" options={sources_list} />}
+                </fieldset>
 
-                <label>Categories</label>
-                {categories_list && <Checkboxes name="category" options={categories_list} />}
+                <fieldset>
+                    <legend>Categories</legend>
+                    {categories_list && <Checkboxes name="category" options={categories_list} />}
+                </fieldset>
 
-                <label>Status:</label>
-                <Checkboxes name="status" options={[
-                    {id: "open", title: "Open"},
-                    {id: "closed", title: "Closed"},
-                    {id: "all", title: "All"}
-                ]}/>
+                <fieldset>
+                    <legend>Status</legend>
+                    <div>
+                        <label htmlFor="status_open">Open</label>
+                        <input id="status_open"type="radio" name="status" value="open"></input>
+                    </div>
+                    <div>
+                        <label htmlFor="status_closed">Closed</label>
+                        <input id="status_closed"type="radio" name="status" value="closed"></input>
+                    </div>
+                    <div>
+                        <label htmlFor="status_all">All</label>
+                        <input id="status_all"type="radio" name="status" value="all"></input>
+                    </div>
+                </fieldset>
+
 
                 <label>Limit:</label>
                 <input type="number" name="limit"></input>
@@ -81,31 +103,52 @@ export default function Filters () {
                 <label>Days:</label>
                 <input type="number" name="days"></input>
 
-                <label>Start Date:</label>
-                <input type="date" name="start_date" min="2015-05-01"></input>
-                <label>End Date:</label>
-                <input type="date" name="end_date"></input>
+                <fieldset>
+                    <legend>Date</legend>
+                    <div>
+                        <label htmlFor="start_date">Start Date:</label>
+                        <input type="date" id="start_date" name="start_date" min="2015-05-01"></input>
+                    </div>
+                    <div>
+                        <label>End Date:</label>
+                        <input type="date" name="end_date"></input>
+                    </div>
+                </fieldset>
 
                 <fieldset>
                     <legend>Magnitude</legend>
-                    <label>Magnitude ID:</label>
-                    <input type="text" name="magID"></input>
-                    <label>Magnitude Minimum:</label>
-                    <input type="number" name="magMin"></input>
-                    <label>Magnitude Maximum:</label>
-                    <input type="number" name="magMax"></input>
+                    <div>
+                        <label htmlFor="magID">Magnitude ID:</label>
+                        <input id="magID" type="text" name="magID"></input>
+                    </div>
+                    <div>
+                        <label htmlFor="magMin">Magnitude Minimum:</label>
+                        <input id="magMin" type="number" name="magMin"></input>
+                    </div>
+                    <div>
+                        <label htmlFor="magMax">Magnitude Maximum:</label>
+                        <input id="magMax" type="number" name="magMax"></input>
+                    </div>
                 </fieldset>
 
                 <fieldset>
                     <legend>Bounding Box</legend>
-                    <label>Minimum Longitude:</label>
-                    <input type="number" name="min_lon"></input>
-                    <label>Minimum Latitude:</label>
-                    <input type="number" name="min_lat"></input>
-                    <label>Maximum Longitude:</label>
-                    <input type="number" name="max_lon"></input>
-                    <label>Maximum Latitude:</label>
-                    <input type="number" name="max_lat"></input>
+                    <div>
+                        <label htmlFor="min_lon">Minimum Longitude:</label>
+                        <input id="min_lon" type="number" name="min_lon"></input>
+                    </div>
+                    <div>
+                        <label htmlFor="max_lon">Maximum Longitude:</label>
+                        <input id="max_lon" type="number" name="max_lon"></input>
+                    </div>
+                    <div>
+                        <label htmlFor="min_lat">Minimum Latitude:</label>
+                        <input id="min_lat" type="number" name="min_lat"></input>
+                    </div>
+                    <div>
+                        <label htmlFor="max_lat">Maximum Latitude:</label>
+                        <input id="max_lat" type="number" name="max_lat"></input>
+                    </div>
                 </fieldset>
 
                 <input type="submit"/>
