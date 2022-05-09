@@ -53,7 +53,7 @@ export default function Filters () {
             magnitude: {
                 magId: form_data.get("magID"),
                 magMin: form_data.get("magMin"),
-                magMax: form_data.get("maxMax")
+                magMax: form_data.get("magMax")
             },
             bounding_box: {
                 min_lon: form_data.get("min_lon"),

@@ -6,13 +6,9 @@ export default function Table (props) {
     const [data, setData] = useState(null);
 
     async function fetchData() {
-        try {
-            const response = await fetch(props.eonet_id === 0 ? "/events" : `/events/EONET_${props.eonet_id}`);
-            const data = await response.json();
-            setData(data);
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await fetch(props.eonet_id === 0 ? "/events" : `/events/EONET_${props.eonet_id}`);
+        const data = await response.json();
+        setData(data);
     }
 
     useEffect(() => {
