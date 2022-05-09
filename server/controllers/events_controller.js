@@ -16,6 +16,7 @@ async function get_events_id(req, res) {
         res.send(data);
     } catch (error) {
         console.log(error);
+        console.log("ID NOT FOUND");
         get_events_query(req, res);
     }
     

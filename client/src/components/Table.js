@@ -7,7 +7,7 @@ export default function Table (props) {
 
     async function fetchData() {
         try {
-            const response = await fetch(props.eonet_id === 0 ? "/events?" : `/events/EONET_${props.eonet_id}`);
+            const response = await fetch(props.eonet_id === 0 ? "/events" : `/events/EONET_${props.eonet_id}`);
             const data = await response.json();
             setData(data);
         } catch (error) {
@@ -17,7 +17,7 @@ export default function Table (props) {
 
     useEffect(() => {
         fetchData();
-    });
+    }, [props.eonet_id]);
 
     function fillTable (data) {
         if ("events" in data) {
